@@ -13,21 +13,21 @@
   - name: "downloading redis"
     get_url:
       url: "http://download.redis.io/redis-stable.tar.gz"
-      dest: /temp/redis-stable.tar.gz
+      dest: /tmp/redis-stable.tar.gz
       mode: '777'
 
   - name: "extract redis file"
     unarchive:
-      src: /temp/redis-stable.tar.gz
-      dest: /temp/redis-stable
+      src: /tmp/redis-stable.tar.gz
+      dest: /tmp/redis-stable
       mode: '777'
 
   - name: "compiling"
     command: make
     args:
-      chdir: /temp/redis-stable
+      chdir: /tmp/redis-stable
   
   - name: "installing redis"
     command: make install
     args:
-      chdir: /temp/redis-stable
+      chdir: /tmp/redis-stable
