@@ -16,9 +16,14 @@
       dest: /tmp/redis-stable.tar.gz
       mode: '777'
 
+  - name: "creating folder for extraction"
+    file:
+      path: /tmp/redis-stable
+      state: directory
+      mode: '777'
+
   - name: "extract redis file"
     unarchive:
-      creates:
       remote_src: yes
       src: /tmp/redis-stable.tar.gz
       dest: /tmp/redis-stable
