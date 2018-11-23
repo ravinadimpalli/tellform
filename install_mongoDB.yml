@@ -8,8 +8,10 @@
   - name: "add an apt key for mongoDB"
     command: "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927"
 
-  - name: "creating list file"
-    command: "echo 'deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse' | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list"
+  - name: "creating list file and adding contents"
+    copy:
+      content: "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse"
+      dest: "/etc/apt/sources.list.d/mongodb-org-3.2.list"
 
   - name: "installing mongoDB"
     apt:
