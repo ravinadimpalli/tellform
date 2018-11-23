@@ -18,6 +18,7 @@
 
   - name: "extract redis file"
     unarchive:
+      creates:
       remote_src: yes
       src: /tmp/redis-stable.tar.gz
       dest: /tmp/redis-stable
