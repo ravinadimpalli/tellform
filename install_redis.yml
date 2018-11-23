@@ -26,7 +26,8 @@
 
   - name: "compiling"
     command: make
-    chdir: /tmp/redis-stable
+    args:
+      chdir: /tmp/redis-stable
   
   - name: "installing redis"
     command: make install
