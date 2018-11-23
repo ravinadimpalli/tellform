@@ -1,0 +1,33 @@
+---
+- hosts: app
+  become: yes
+  tasks:
+  - name: "install build essentials"
+    apt: 
+      name: "{{item}}"
+      state: present
+    loop:
+    - build-essential
+    - tcl
+  
+  - name: "downloading redis"
+    get_url:
+      url: "http://download.redis.io/redis-stable.tar.gz"
+      dest: /temp/redis-stable.tar.gz
+      mode: '777'
+
+  - name: "extract redis file"
+    unarchive:
+      src: /temp/redis-stable.tar.gz
+      dest: /temp/redis-stable
+      mode: '777'
+
+  - name: "compiling"
+    command: make
+    args:
+      chdir: /temp/redis-stable
+  
+  - name: "installing redis"
+    command: make install
+    args:
+      chdir: /temp/redis-stable
