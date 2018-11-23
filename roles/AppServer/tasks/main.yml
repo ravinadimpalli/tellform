@@ -1,0 +1,51 @@
+---
+# tasks file for AppServer
+- name: "create folder to download setup file"
+  file:
+    path: "{{setup_folder_path}}"
+    state: directory
+    mode: '777'
+
+- name: "download node setup sh file"
+  get_url:
+    url: "https://deb.nodesource.com/setup_6.x"
+    dest: "{{setup_folder_path}}/nodesource_setup.sh"
+    mode: '777'
+
+- name: "execute downloaded shell"
+  shell: "{{setup_folder_path}}/nodesource_setup.sh"
+  args:
+    executable: /bin/bash
+
+- name: "install nodejs"
+  apt:
+    name: nodejs
+    state: present
+
+- name: "installing node pm2"
+  npm:
+    name: pm2
+    global: yes #install nodejs library as global
+    state: present
+
+- name: "create folder for app"
+  file:
+    name: "{{app_path}}"
+    state: directory
+    mode: "777"
+
+- name: "install app specific tools"
+  npm:
+    name: "{{item}}"
+    global: yes
+    state: present
+  loop:
+  - grunt
+  - bower
+  - grunt-cli
+
+- name: "cloning the code from git"
+  git:
+    repo: "https://github.com/tellform/tellform.git"
+    version: "2.20"
+    dest: "{{app_path}}/tellform"

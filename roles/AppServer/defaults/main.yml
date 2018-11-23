@@ -1,0 +1,5 @@
+---
+# defaults file for AppServer
+setup_folder_path: /home/ansible/nodesetup
+app_folder_name: app
+app_path: "/home/ansible/{{app_folder_name}}"
