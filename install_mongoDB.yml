@@ -13,6 +13,7 @@
 
   - name: "installing mongoDB"
     apt:
+      update_cache: yes
       name: mongodb-org
       state: present
   
